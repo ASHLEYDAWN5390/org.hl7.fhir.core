@@ -70,4 +70,11 @@ class ResourceTests {
     String output = xml.composeString(res);
     assertEquals(TGT, output);
   }
+
+  @Test
+  void testCapabilityStatementFhirVersion() {
+    CapabilityStatement cap = new CapabilityStatement();
+    cap.getFhirVersionElement().setValueAsString(Constants.VERSION);
+    assertEquals(Constants.VERSION, cap.getFhirVersion().getDisplay());
+  }
 }
