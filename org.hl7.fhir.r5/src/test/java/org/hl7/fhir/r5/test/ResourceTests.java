@@ -12,6 +12,7 @@ import org.hl7.fhir.r5.model.CapabilityStatement;
 import org.hl7.fhir.r5.model.CodeSystem;
 import org.hl7.fhir.r5.model.CompartmentDefinition;
 import org.hl7.fhir.r5.model.ConceptMap;
+import org.hl7.fhir.r5.model.Constants;
 import org.hl7.fhir.r5.model.ExampleScenario;
 import org.hl7.fhir.r5.model.GraphDefinition;
 import org.hl7.fhir.r5.model.ImplementationGuide;
