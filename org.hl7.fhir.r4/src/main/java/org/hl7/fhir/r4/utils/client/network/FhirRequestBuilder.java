@@ -170,15 +170,22 @@ public class FhirRequestBuilder {
   @Nonnull
   private static Authenticator getAuthenticator() {
     return (route, response) -> {
-      final String httpProxyUser = System.getProperty(HTTP_PROXY_USER);
-      final String httpProxyPass = System.getProperty(HTTP_PROXY_PASS);
-      if (httpProxyUser != null && httpProxyPass != null) {
-        String credential = Credentials.basic(httpProxyUser, httpProxyPass);
-        return response.request().newBuilder()
-          .header(HEADER_PROXY_AUTH, credential)
-          .build();
+      System.out.println("RESPONSE MESSAGE: " + response.message());
+      for (Challenge challenge : response.challenges()) {
+        // If this is preemptive auth, use a preemptive credential.
+        if (challenge.scheme().equalsIgnoreCase("OkHttp-Preemptive")) {
+          final String httpProxyUser = System.getProperty(HTTP_PROXY_USER);
+          final String httpProxyPass = System.getProperty(HTTP_PROXY_PASS);
+          if (httpProxyUser != null && httpProxyPass != null) {
+            String credential = Credentials.basic(httpProxyUser, httpProxyPass);
+            return response.request().newBuilder()
+              .header(HEADER_PROXY_AUTH, credential)
+              .build();
+          }
+          return response.request().newBuilder().build();
+        }
       }
-      return response.request().newBuilder().build();
+      return null;
     };
   }
 
