@@ -164,9 +164,12 @@ public class SimpleWorkerContext extends BaseWorkerContext implements IWorkerCon
     super(locale);
     copy(other);
   }
-  
+
   protected void copy(SimpleWorkerContext other) {
     super.copy(other);
+    loadedPackages.clear();
+    loadedPackages.addAll(other.loadedPackages);
+    userAgent = other.userAgent;
     questionnaire = other.questionnaire;
     binaries.putAll(other.binaries);
     version = other.version;
@@ -740,6 +743,10 @@ public class SimpleWorkerContext extends BaseWorkerContext implements IWorkerCon
   @Override
   public boolean hasCache() {
     return true;
+  }
+
+  public SimpleWorkerContext copy() throws IOException {
+      return new SimpleWorkerContext(this);
   }
 
   @Override

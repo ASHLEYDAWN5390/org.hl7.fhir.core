@@ -102,14 +102,25 @@ public class TestingUtilities extends BaseTestingUtilities {
         IWorkerContext fcontext = getWorkerContext(version);
         fcontexts.put(v, fcontext);
     }
+
+    /*
+    try {
+      SimpleWorkerContext copyOfContext = ((SimpleWorkerContext) fcontexts.get(v)).copy();
+      return copyOfContext;
+    } catch (Exception e) {
+    e.printStackTrace();
+    throw new Error(e);
+
+
+  }*/
     return fcontexts.get(v);
   }
 
-  public static IWorkerContext getWorkerContext(String version) {
+  private static SimpleWorkerContext getWorkerContext(String version) {
     FilesystemPackageCacheManager pcm;
     try {
       pcm = new FilesystemPackageCacheManager(true, ToolsVersion.TOOLS_VERSION);
-      IWorkerContext fcontext = getWorkerContext(pcm.loadPackage(VersionUtilities.packageForVersion(version), version));
+      SimpleWorkerContext fcontext = getWorkerContext(pcm.loadPackage(VersionUtilities.packageForVersion(version), version));
       fcontext.setUcumService(new UcumEssenceService(TestingUtilities.loadTestResourceStream("ucum", "ucum-essence.xml")));
       fcontext.setExpansionProfile(new Parameters());
       if (!fcontext.hasPackage("hl7.terminology.r5", null)) {

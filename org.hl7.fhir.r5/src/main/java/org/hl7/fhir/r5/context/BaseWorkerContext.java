@@ -271,7 +271,7 @@ public abstract class BaseWorkerContext extends I18nBase implements IWorkerConte
   }
 
   protected void copy(BaseWorkerContext other) {
-    synchronized (other.lock) { // tricky, because you need to lock this as well, but it's really not in use yet 
+    synchronized (other.lock) { // tricky, because you need to lock this as well, but it's really not in use yet
       allResourcesById.putAll(other.allResourcesById);
       translator = other.translator;
       codeSystems.copy(other.codeSystems);
@@ -300,10 +300,11 @@ public abstract class BaseWorkerContext extends I18nBase implements IWorkerConte
       canRunWithoutTerminology = other.canRunWithoutTerminology;
       noTerminologyServer = other.noTerminologyServer;
       if (other.txCache != null)
-        txCache = other.txCache.copy();
+        txCache = other.txCache;
       expandCodesLimit = other.expandCodesLimit;
       logger = other.logger;
       expParameters = other.expParameters;
+      ucumService = other.ucumService;
     }
   }
   
