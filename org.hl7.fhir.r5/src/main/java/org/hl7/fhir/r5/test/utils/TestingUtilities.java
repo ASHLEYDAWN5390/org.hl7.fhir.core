@@ -103,7 +103,7 @@ public class TestingUtilities extends BaseTestingUtilities {
         fcontexts.put(v, fcontext);
     }
 
-    /*
+
     try {
       SimpleWorkerContext copyOfContext = ((SimpleWorkerContext) fcontexts.get(v)).copy();
       return copyOfContext;
@@ -112,8 +112,8 @@ public class TestingUtilities extends BaseTestingUtilities {
     throw new Error(e);
 
 
-  }*/
-    return fcontexts.get(v);
+  }
+    //return fcontexts.get(v);
   }
 
   private static SimpleWorkerContext getWorkerContext(String version) {
